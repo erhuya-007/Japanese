@@ -22,6 +22,28 @@ body { font-family: 'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif; backg
 .course-nav .nav-tab { display: block; width: 100%; padding: 9px 10px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; cursor: pointer; transition: all 0.2s ease; font-size: 0.82em; font-weight: 500; text-align: center; line-height: 1.35; white-space: nowrap; }
 .course-nav .nav-tab:hover { background: rgba(255,255,255,0.26); transform: translateX(2px); }
 .course-nav .nav-tab.active { background: white; color: #667eea; border-color: white; font-weight: 700; box-shadow: 0 3px 12px rgba(0,0,0,0.18); transform: none; }
+.course-mobile-bar { display: none; }
+.course-nav-btn { flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,0.35); border-radius: 12px; background: rgba(255,255,255,0.18); color: white; font-size: 1.35em; line-height: 1; cursor: pointer; transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
+.course-nav-btn:active:not(:disabled) { background: rgba(255,255,255,0.32); }
+.course-nav-btn:disabled { opacity: 0.35; cursor: default; }
+.course-picker-trigger { flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; border: 1px solid rgba(255,255,255,0.35); border-radius: 12px; background: white; color: #667eea; font-size: 0.95em; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+.course-picker-trigger:active { transform: scale(0.98); }
+.course-picker-chevron { font-size: 0.75em; opacity: 0.65; }
+.course-picker-sheet { display: none; position: fixed; inset: 0; z-index: 200; }
+.course-picker-sheet.open { display: block; }
+.course-picker-backdrop { position: absolute; inset: 0; background: rgba(15,23,42,0.45); }
+.course-picker-panel { position: absolute; left: 0; right: 0; bottom: 0; max-height: min(72vh, 520px); background: white; border-radius: 18px 18px 0 0; padding: 0 12px calc(12px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 32px rgba(0,0,0,0.18); animation: sheetUp 0.28s ease; display: flex; flex-direction: column; }
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.course-picker-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 4px 10px; border-bottom: 1px solid #e8ebf8; flex-shrink: 0; }
+.course-picker-header span { font-size: 1em; font-weight: 700; color: #333; }
+.course-picker-close { width: 36px; height: 36px; border: none; border-radius: 50%; background: #f0f2f8; color: #555; font-size: 1.1em; cursor: pointer; line-height: 1; }
+.course-picker-grid-wrap { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 12px 0 4px; flex: 1; min-height: 0; }
+.course-picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.course-picker-item { min-height: 48px; padding: 10px 4px; border: 1.5px solid #e0e7ff; border-radius: 12px; background: #f8f9ff; color: #555; font-size: 0.88em; font-weight: 600; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+.course-picker-item:active { transform: scale(0.96); }
+.course-picker-item.active { background: #667eea; border-color: #667eea; color: white; box-shadow: 0 3px 10px rgba(102,126,234,0.35); }
+.course-picker-item.intro-item { grid-column: 1 / -1; min-height: 44px; background: linear-gradient(135deg,#eef2ff,#fdf4ff); border-color: #c7d2fe; color: #4338ca; }
+.course-picker-item.intro-item.active { background: linear-gradient(135deg,#667eea,#764ba2); border-color: #667eea; color: white; }
 .app-main { display: contents; }
 #dynamic-lessons-container { display: contents; }
 .main-panel { display: none !important; grid-column: 2; background: white; border-radius: 16px; padding: 14px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); animation: fadeIn 0.4s ease; width: 100%; min-width: 0; }
@@ -237,12 +259,10 @@ body { padding: 8px 10px; -webkit-text-size-adjust: 100%; }
 .header h1 { font-size: 1.45em; }
 .header p { font-size: 0.82em; line-height: 1.45; }
 .app-shell { grid-template-columns: 1fr; gap: 10px; }
-.course-sidebar { position: sticky; top: 0; z-index: 50; max-height: none; padding: 8px; border-radius: 12px; grid-column: 1; }
-.course-sidebar-title { font-size: 0.72em; padding: 2px 6px 8px; margin-bottom: 6px; }
-.course-nav { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 2px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-.course-nav::-webkit-scrollbar { display: none; }
-.course-nav .nav-tab { flex: 0 0 auto; min-width: 68px; padding: 10px 14px; font-size: 0.85em; white-space: nowrap; }
-.course-nav .nav-tab:hover { transform: none; }
+.course-sidebar { position: sticky; top: 0; z-index: 50; max-height: none; padding: 8px 10px; border-radius: 12px; grid-column: 1; }
+.course-sidebar-title { display: none; }
+.course-mobile-bar { display: flex; align-items: center; gap: 8px; width: 100%; }
+.course-nav { display: none; }
 .main-panel { grid-column: 1; padding: 12px 10px; border-radius: 12px; }
 .lesson-top { margin-bottom: 10px; }
 .lesson-header { flex-direction: column; gap: 10px; }
@@ -395,10 +415,18 @@ body { padding: 8px 10px; -webkit-text-size-adjust: 100%; }
 <div class="app-shell">
 <aside class="course-sidebar">
 <div class="course-sidebar-title">📚 课程目录</div>
+<div class="course-mobile-bar" id="course-mobile-bar">
+<button type="button" class="course-nav-btn" id="course-prev-btn" aria-label="上一课">‹</button>
+<button type="button" class="course-picker-trigger" id="course-picker-trigger" aria-haspopup="dialog" aria-expanded="false">
+<span class="course-picker-label" id="course-picker-label">入门课</span>
+<span class="course-picker-chevron" aria-hidden="true">▾</span>
+</button>
+<button type="button" class="course-nav-btn" id="course-next-btn" aria-label="下一课">›</button>
+</div>
 <nav class="course-nav" id="main-nav-tabs">
-<div class="nav-tab active" onclick="switchMainTab('intro', this)">入门课</div>
-<div class="nav-tab" onclick="switchMainTab('lesson1', this)">第1课</div>
-<div class="nav-tab" onclick="switchMainTab('lesson2', this)">第2课</div>
+<div class="nav-tab active" data-tab-id="intro" onclick="switchMainTab('intro', this)">入门课</div>
+<div class="nav-tab" data-tab-id="lesson1" onclick="switchMainTab('lesson1', this)">第1课</div>
+<div class="nav-tab" data-tab-id="lesson2" onclick="switchMainTab('lesson2', this)">第2课</div>
 </nav>
 </aside>
 <div class="app-main">
@@ -1557,6 +1585,19 @@ body { padding: 8px 10px; -webkit-text-size-adjust: 100%; }
 </div><!-- app-shell -->
 </div><!-- container -->
 
+<div class="course-picker-sheet" id="course-picker-sheet" aria-hidden="true" role="dialog" aria-label="选择课程">
+<div class="course-picker-backdrop" id="course-picker-backdrop"></div>
+<div class="course-picker-panel">
+<div class="course-picker-header">
+<span>📚 选择课程</span>
+<button type="button" class="course-picker-close" id="course-picker-close" aria-label="关闭">✕</button>
+</div>
+<div class="course-picker-grid-wrap">
+<div class="course-picker-grid" id="course-picker-grid"></div>
+</div>
+</div>
+</div>
+
 <script src="lessons-data.js"></script>
 <script src="furigana.js"></script>
 <script src="lessons-render.js"></script>
@@ -1623,6 +1664,84 @@ if (dyn) {
 while (dyn.firstElementChild) main.appendChild(dyn.firstElementChild);
 }
 }
+var coursePickerOrder = [];
+function getTabId(tab) {
+return tab.dataset.tabId || (tab.getAttribute('onclick') || '').match(/switchMainTab\('([^']+)'/)?.[1] || '';
+}
+function buildCoursePickerGrid() {
+var grid = document.getElementById('course-picker-grid');
+if (!grid) return;
+grid.innerHTML = '';
+coursePickerOrder = [];
+document.querySelectorAll('#main-nav-tabs .nav-tab').forEach(function(tab) {
+var id = getTabId(tab);
+if (!id) return;
+coursePickerOrder.push({ id: id, label: tab.textContent.trim(), el: tab });
+var btn = document.createElement('button');
+btn.type = 'button';
+btn.className = 'course-picker-item' + (id === 'intro' ? ' intro-item' : '');
+btn.textContent = tab.textContent.trim();
+btn.dataset.tabId = id;
+btn.onclick = function() { switchMainTab(id, tab); closeCoursePicker(); };
+grid.appendChild(btn);
+});
+}
+function updateMobileCoursePicker(activeId) {
+var label = document.getElementById('course-picker-label');
+var idx = coursePickerOrder.findIndex(function(c) { return c.id === activeId; });
+if (label && idx >= 0) label.textContent = coursePickerOrder[idx].label;
+document.querySelectorAll('.course-picker-item').forEach(function(btn) {
+btn.classList.toggle('active', btn.dataset.tabId === activeId);
+});
+var prevBtn = document.getElementById('course-prev-btn');
+var nextBtn = document.getElementById('course-next-btn');
+if (prevBtn) prevBtn.disabled = idx <= 0;
+if (nextBtn) nextBtn.disabled = idx < 0 || idx >= coursePickerOrder.length - 1;
+}
+function navigateCourse(delta) {
+var active = document.querySelector('#main-nav-tabs .nav-tab.active');
+if (!active) return;
+var id = getTabId(active);
+var idx = coursePickerOrder.findIndex(function(c) { return c.id === id; });
+var target = coursePickerOrder[idx + delta];
+if (target) switchMainTab(target.id, target.el);
+}
+function openCoursePicker() {
+var sheet = document.getElementById('course-picker-sheet');
+var trigger = document.getElementById('course-picker-trigger');
+if (!sheet) return;
+sheet.classList.add('open');
+sheet.setAttribute('aria-hidden', 'false');
+if (trigger) trigger.setAttribute('aria-expanded', 'true');
+document.body.style.overflow = 'hidden';
+var activeItem = sheet.querySelector('.course-picker-item.active');
+if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+function closeCoursePicker() {
+var sheet = document.getElementById('course-picker-sheet');
+var trigger = document.getElementById('course-picker-trigger');
+if (!sheet) return;
+sheet.classList.remove('open');
+sheet.setAttribute('aria-hidden', 'true');
+if (trigger) trigger.setAttribute('aria-expanded', 'false');
+document.body.style.overflow = '';
+}
+function initMobileCoursePicker() {
+buildCoursePickerGrid();
+var trigger = document.getElementById('course-picker-trigger');
+var backdrop = document.getElementById('course-picker-backdrop');
+var closeBtn = document.getElementById('course-picker-close');
+var prevBtn = document.getElementById('course-prev-btn');
+var nextBtn = document.getElementById('course-next-btn');
+if (trigger) trigger.addEventListener('click', openCoursePicker);
+if (backdrop) backdrop.addEventListener('click', closeCoursePicker);
+if (closeBtn) closeBtn.addEventListener('click', closeCoursePicker);
+if (prevBtn) prevBtn.addEventListener('click', function() { navigateCourse(-1); });
+if (nextBtn) nextBtn.addEventListener('click', function() { navigateCourse(1); });
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape') closeCoursePicker();
+});
+}
 function switchMainTab(tabId, el) {
 initCourseLayout();
 document.querySelectorAll('.main-panel').forEach(function(panel) {
@@ -1638,8 +1757,12 @@ panel.classList.add('active');
 panel.style.display = 'block';
 if (el) {
 el.classList.add('active');
+if (window.matchMedia('(min-width: 769px)').matches) {
 el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
+}
+updateMobileCoursePicker(tabId);
+closeCoursePicker();
 }
 function switchIntroTab(tabId, el) {
 document.querySelectorAll('.intro-section').forEach(section => { section.classList.remove('active'); });
@@ -2595,6 +2718,7 @@ renderDynamicLessons();
 enhanceRuleCards();
 initFurigana();
 initCourseLayout();
+initMobileCoursePicker();
 switchMainTab('intro', document.querySelector('#main-nav-tabs .nav-tab.active'));
 startQuiz();
 </script>

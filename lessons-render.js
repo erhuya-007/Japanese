@@ -168,6 +168,7 @@ function renderDynamicLessons() {
   LESSONS_CATALOG.forEach(function (lesson) {
     var tab = document.createElement('div');
     tab.className = 'nav-tab';
+    tab.dataset.tabId = lesson.id;
     tab.textContent = '第' + lesson.num + '课';
     tab.onclick = function () { switchMainTab(lesson.id, tab); };
     nav.appendChild(tab);
